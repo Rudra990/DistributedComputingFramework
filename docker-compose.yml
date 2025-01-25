@@ -1,0 +1,13 @@
+
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  worker:
+    build: .
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
